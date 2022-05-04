@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,5 +24,6 @@ Route::get('/', function () {
 // })->middleware(['auth'])->name('dashboard');
 
 Route::get('/shop', ShopController::class)->name('shop');
+Route::get('/products/{product:slug}', ProductController::class)->name('products.show');
 
 require __DIR__.'/auth.php';
