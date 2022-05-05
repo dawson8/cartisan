@@ -12,38 +12,39 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex" x-data="{ open: false }">
-                    <x-nav-link :href="route('shop')" :active="request()->routeIs('shop')">
+                    {{-- TODO: keep as a reminder, how do i get  the active state from multiple routes (Mega Menu) --}}
+                    {{-- <x-nav-link :href="route('shop')" :active="request()->routeIs('shop')">
                         {{ __('Shop') }}
-                    </x-nav-link>
+                    </x-nav-link> --}}
 
                     <div x-data="{ open: false }" @mouseover.away="open = false" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent ">
-                        <a @mouseover="open = true" href="/" class="text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                            Mega Menu
-                        </a> 
-                        
+                        <a @mouseover="open = true" href="route('shop')" class="text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                            {{ __('Shop') }}
+                        </a>
+
                         <div x-show="open" class="w-full mt-0 shadow-lg bg-white absolute left-0 top-full">
                             <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                                 <div class="container px-5 mx-auto">
                                     <div class="flex flex-wrap md:text-left text-center">
-                                        @for ($i = 0; $i < 6; $i++)
+                                        @foreach ($categories as $category)
                                             <div class="lg:w-1/6 md:w-1/2 w-full px-4">
-                                                <h2 class="title-font font-medium text-gray-900 text-sm mb-3">CATEGORY {{ $i }}</h2>
+                                                <h2 class="title-font font-medium text-gray-900 text-sm mb-3">{{ $category->name }}</h2>
                                                 <nav class="list-none">
                                                     <ul>
-                                                    @for ($j = 0; $j < 5; $j++)
+                                                    @foreach ($category->children as $child)
                                                         <li>
-                                                            <a href="" class="text-gray-600 hover:text-gray-800">Sub Category {{ $j }}</a>
+                                                            <a href="{{ route('categories.show', $child->slug) }}" class="text-gray-600 hover:text-gray-800">{{ $child->name }}</a>
                                                         </li>
-                                                    @endfor
+                                                    @endforeach
                                                     </ul>
                                                 </nav>
-                                            </div>  
-                                        @endfor
+                                            </div>
+                                        @endforeach
                                     </div>
-                                </div>                                                       
+                                </div>
                             </div>
                         </div>
-                    </div>             
+                    </div>
                 </div>
             </div>
 
@@ -123,36 +124,3 @@
         </div>
     @endauth
 </nav>
-
-
-
-{{-- <nav class="bg-white relative flex items-center w-full justify-between">
-    <div class="px-6">
-        <div class="navbar-collapse collapse grow items-center" id="navbarSupportedContentX">
-            <ul class="flex flex-row">
-                <li >
-                    <a class="block pr-2 lg:px-2 py-2 text-gray-600 hover:text-gray-700 focus:text-gray-700 " href="#!">Regular link</a>
-                </li>
-                <li class="dropdown static">
-                    <div x-data="{ open: false }" @mouseover.away="open = false">
-                        <div @mouseover="open = true">
-                            <a class="nav-link block pr-2 lg:px-2 py-2 text-gray-600 hover:text-gray-700 focus:text-gray-700 flex items-center whitespace-nowrap" 
-                                href="#" type="button">Mega menu
-                                
-                            </a>
-                        </div>
-                        
-                        <div x-show="open" class="w-full mt-0 shadow-lg bg-white absolute left-0 top-full">
-                            <div class="px-6 lg:px-8 py-5">
-                                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                                    <a href="#">test one</a>
-                                    <a href="#">test one</a>                
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-  </nav> --}}

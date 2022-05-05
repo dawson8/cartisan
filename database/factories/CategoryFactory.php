@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Category>
  */
-class ProductFactory extends Factory
+class CategoryFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -21,10 +21,7 @@ class ProductFactory extends Factory
 
         return [
             'name' => $name,
-            'slug' => Str::slug($name),
-            'description' => $this->faker->paragraph(),
-            'price' => $this->faker->randomNumber(4, true),
-            'live_at' => now()
+            'slug' => Str::slug($name)
         ];
     }
 }

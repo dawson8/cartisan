@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,5 +26,6 @@ Route::get('/', function () {
 
 Route::get('/shop', ShopController::class)->name('shop');
 Route::get('/products/{product:slug}', ProductController::class)->name('products.show');
+Route::get('/categories/{category:slug}', CategoryController::class)->name('categories.show');
 
 require __DIR__.'/auth.php';
