@@ -9,6 +9,8 @@ class CategoryController extends Controller
 {
     public function __invoke(Category $category)
     {
+        $category->load('descendantsAndSelf.products');
+
         return view('categories.show', [
             'category' => $category
         ]);

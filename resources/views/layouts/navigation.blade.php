@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100 fixed inset-x-0">
+<nav x-data="{ open: false }" class="bg-white border-b border-gray-100 fixed inset-x-0 z-50">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -18,30 +18,30 @@
                     </x-nav-link> --}}
 
                     <div x-data="{ open: false }" @mouseover.away="open = false" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent ">
-                        <a @mouseover="open = true" href="route('shop')" class="text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                        <a @mouseover="open = true" href="{{ route('shop') }}" class="text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                             {{ __('Shop') }}
                         </a>
 
                         <div x-show="open" class="w-full mt-0 shadow-lg bg-white absolute left-0 top-full">
-                            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                                <div class="container px-5 mx-auto">
-                                    <div class="flex flex-wrap md:text-left text-center">
-                                        @foreach ($categories as $category)
-                                            <div class="lg:w-1/6 md:w-1/2 w-full px-4">
-                                                <h2 class="title-font font-medium text-gray-900 text-sm mb-3">{{ $category->name }}</h2>
-                                                <nav class="list-none">
-                                                    <ul>
-                                                    @foreach ($category->children as $child)
-                                                        <li>
-                                                            <a href="{{ route('categories.show', $child->slug) }}" class="text-gray-600 hover:text-gray-800">{{ $child->name }}</a>
-                                                        </li>
-                                                    @endforeach
-                                                    </ul>
-                                                </nav>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
+                            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex flex-wrap">
+                                @foreach ($categories as $category)
+                                    <nav class="lg:w-1/6 md:w-1/2 w-full px-4">
+                                        <ul>
+                                            <li class="py-2">
+                                                <a href="{{ route('categories.show', $category->slug) }}" class="text-gray-600 hover:text-gray-800 font-bold">
+                                                    {{ $category->name }}
+                                                </a>
+                                            </li>
+                                            @foreach ($category->children as $child)
+                                                <li>
+                                                    <a href="{{ route('categories.show', $child->slug) }}" class="text-gray-600 hover:text-gray-800">
+                                                        {{ $child->name }}
+                                                    </a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </nav>
+                                @endforeach
                             </div>
                         </div>
                     </div>
