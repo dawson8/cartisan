@@ -28,4 +28,8 @@ Route::get('/shop', ShopController::class)->name('shop');
 Route::get('/products/{product:slug}', ProductController::class)->name('products.show');
 Route::get('/categories/{category:slug}', CategoryController::class)->name('categories.show');
 
+Route::middleware('can:admin')->group(function () {
+    Route::get('admin/products/create', [ProductController::class, 'create'])->name('admin.create');
+});
+
 require __DIR__.'/auth.php';
