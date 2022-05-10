@@ -11,6 +11,11 @@ class Category extends Model
     use HasFactory;
     use HasRecursiveRelationships;
 
+    public $fillable = [
+        'name',
+        'slug'
+    ];
+
     public function products()
     {
         return $this->belongsToMany(Product::class);

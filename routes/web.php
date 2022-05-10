@@ -3,6 +3,7 @@
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Livewire\Admin\Categories;
 use App\Http\Livewire\Admin\Products;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,7 @@ Route::get('/categories/{category:slug}', CategoryController::class)->name('cate
 
 Route::middleware('can:admin')->group(function () {
     Route::get('admin/products', Products::class)->name('admin.products');
+    Route::get('admin/categories', Categories::class)->name('admin.categories');
 });
 
 require __DIR__.'/auth.php';
