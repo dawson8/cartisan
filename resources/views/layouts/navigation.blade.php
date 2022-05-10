@@ -74,7 +74,7 @@
 
                         <x-slot name="content">
                             @admin
-                                <x-dropdown-link :href="route('admin.create')">
+                                <x-dropdown-link :href="route('admin.products')">
                                     {{ __('Admin Panel') }}
                                 </x-dropdown-link>
                             @endadmin
