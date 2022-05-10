@@ -10,6 +10,13 @@ class Product extends Model
 {
     use HasFactory;
 
+    public $fillable = [
+        'name',
+        'slug',
+        'description',
+        'price'
+    ];
+
     public function formatPrice()
     {
         $fmt = new NumberFormatter( app()->getLocale(), NumberFormatter::CURRENCY );
