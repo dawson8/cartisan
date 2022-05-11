@@ -15,6 +15,9 @@ class Products extends Component
     public $sortBy = 'id';
     public $sortAsc = true;
     public $product;
+    public $checked = [];
+    public $selectPage = false;
+    public $selectAll = false;
 
     public $confirmingProductDeletion = false;
     public $confirmingProductAdd = false;
@@ -81,17 +84,55 @@ class Products extends Component
         $this->confirmingProductAdd = true;
     }
 
-    public function render()
+    public function updatedSelectPage($value)
     {
-        $products = Product::when($this->q, function($query) {
+        // dd('ok');
+        if($value) {
+            $this->products->pluck('id')->map(fn($item) => (string) $item)->toArray();
+        } else {
+            $this->checked = [];
+        }
+    }
+
+    public function updatedChecked()
+    {
+        $this->selectPage = false;
+    }
+
+    public function selectAll()
+    {
+        $this->selectAll = true;
+        $this->checked = $this->productsQuery->pluck('id')->map(fn($item) => (string) $item)->toArray();
+    }
+
+    public function getProductsProperty()
+    {
+        return $this->productsQuery->paginate(5);
+    }
+
+    public function getProductsQueryProperty()
+    {
+        return Product::when($this->q, function($query) {
             return $query->where('name', 'like', '%'. $this->q . '%')
                 ->orWhere('price', 'like', '%' . $this->q . '%');
         })
-        ->orderBY($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
-        ->paginate(5);
+        ->orderBY($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC');
+    }
 
+    public function isChecked($product_id)
+    {
+        return in_array($product_id, $this->checked);
+    }
+
+    public function updatedSelectedClass($class_id)
+    {
+        // $this->sections =
+    }
+
+    public function render()
+    {
         return view('livewire.admin.products', [
-            'products' => $products
+            'products' => $this->products
         ])->layout('layouts.admin');
     }
 }

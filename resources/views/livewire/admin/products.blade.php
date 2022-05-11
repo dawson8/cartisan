@@ -57,6 +57,21 @@
         </div>
     </div>
 
+    @if ($selectPage)
+        <div class="col-md-10 mb-2 mt-2">
+            @if ($selectAll)
+                <div>
+                    You have selected all <strong>{{ $products->total() }}</strong> products.
+                </div>
+            @else
+                <div>
+                    You have selected <strong>{{ count($checked) }}</strong> products, Do you want to select all? <strong>{{ $products->total() }}</strong>?
+                    <a href="#" class="ml-2" wire:click="selectAll">Select All</a>?
+                </div>
+            @endif
+        </div>
+    @endif
+
     <div class="flex flex-col">
         <div class="overflow-x-auto">
             <div class="align-middle inline-block min-w-full">
@@ -66,8 +81,8 @@
                             <tr>
                                 <th scope="col" class="p-4">
                                     <div class="flex items-center">
-                                        <input id="checkbox-all" aria-describedby="checkbox-1" type="checkbox" class="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-cyan-200 h-4 w-4 rounded">
-                                        <label for="checkbox-all" class="sr-only">checkbox</label>
+                                        <input type="checkbox" class="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-cyan-200 h-4 w-4 rounded" wire:model="selectPage">
+                                        <label class="sr-only">checkbox</label>
                                     </div>
                                 </th>
                                 <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase flex items-center">
@@ -91,8 +106,8 @@
                                 <tr class="hover:bg-gray-100">
                                     <td class="p-4 w-4">
                                         <div class="flex items-center">
-                                            <input id="" aria-describedby="checkbox-1" type="checkbox" class="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-cyan-200 h-4 w-4 rounded">
-                                            <label for="" class="sr-only">checkbox</label>
+                                            <input type="checkbox" value="{{ $product->id }}" class="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-cyan-200 h-4 w-4 rounded" wire:model="checked">
+                                            <label class="sr-only">checkbox</label>
                                         </div>
                                     </td>
                                     <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">#{{ $product->id }}</td>
